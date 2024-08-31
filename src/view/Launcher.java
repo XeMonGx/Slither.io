@@ -11,9 +11,8 @@ public class Launcher extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Centrer la fenêtre
 
-        ViewMap viewMap = new ViewMap();
-        add(viewMap);
-        ViewSnake viewSnake = new ViewSnake(100, 100, 50, java.awt.Color.RED);
-        add(viewSnake);
+        // Ajout du panneau de jeu
+        GamePanel gamePanel = new GamePanel(10, 10, 10, java.awt.Color.RED);
+        add(gamePanel);
     }
 }

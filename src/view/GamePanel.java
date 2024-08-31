@@ -2,17 +2,25 @@ package view;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class ViewMap extends JPanel {
+public class GamePanel extends JPanel {
 
   private Image backgroundImage;
+  private int x;
+  private int y;
+  private int radius;
+  private Color color;
 
-  // Constructeur qui charge l'image
-  public ViewMap() {
+  public GamePanel(int x, int y, int radius, Color color) {
     // Charger l'image depuis les ressources
     backgroundImage = new ImageIcon(getClass().getResource("../resources/background.jpeg")).getImage();
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
   }
 
   // Redéfinir paintComponent pour dessiner l'image
@@ -30,6 +38,9 @@ public class ViewMap extends JPanel {
         g.drawImage(backgroundImage, x * pictureWidth, y * pictureHeight, pictureWidth, pictureHeight, this);
       }
     }
+
+    g.setColor(color);
+    g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius); // Dessine un cercle centré sur (x, y)
   }
 
 }
