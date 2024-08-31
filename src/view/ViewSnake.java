@@ -26,18 +26,4 @@ public class ViewSnake extends JPanel {
     g.setColor(color);
     g.fillOval(x - radius, y - radius, 2 * radius, 2 * radius); // Dessine un cercle centré sur (x, y)
   }
-
-  public static void main(String[] args) {
-    // Création de la fenêtre
-    JFrame frame = new JFrame("Dessiner un Cercle");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400, 400);
-
-    // Création du panneau avec le cercle
-    ViewSnake circlePanel = new ViewSnake(200, 200, 100, Color.RED);
-
-    // Ajout du panneau à la fenêtre
-    frame.add(circlePanel);
-    frame.setVisible(true);
-  }
 }
