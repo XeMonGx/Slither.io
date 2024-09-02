@@ -11,14 +11,15 @@ public class SnakeHead implements SnakeSegment {
   private int speed;
 
   public SnakeHead(int speed) {
+    this.speed = speed;
     init();
   }
 
   public void init() {
     // Initialiser la tête du serpent
     Random random = new Random();
-    this.x = random.nextInt(20);
-    this.y = random.nextInt(20);
+    this.x = random.nextInt(120);
+    this.y = random.nextInt(120);
   }
 
   @Override
@@ -36,6 +37,8 @@ public class SnakeHead implements SnakeSegment {
         break;
       case RIGHT:
         this.x += speed;
+        break;
+      default:
         break;
     }
   }

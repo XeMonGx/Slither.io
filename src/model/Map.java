@@ -18,6 +18,12 @@ public class Map {
     this.snakes = new ArrayList<Snake>();
   }
 
+  public void update() {
+    for (Snake snake : this.snakes) {
+      snake.update();
+    }
+  }
+
   public void addSnake(Snake snake) {
     this.snakes.add(snake);
   }

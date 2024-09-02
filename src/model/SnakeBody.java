@@ -4,10 +4,10 @@ import controller.Direction;
 
 public class SnakeBody implements SnakeSegment {
 
-  int x;
-  int y;
-  int speed;
-  Effect effect;
+  private int x;
+  private int y;
+  private int speed;
+  private Effect effect;
 
   public SnakeBody(int x, int y, int speed) {
     this.x = x;

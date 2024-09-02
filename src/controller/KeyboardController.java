@@ -7,27 +7,31 @@ public class KeyboardController implements KeyListener {
 
   Direction direction;
 
+  public KeyboardController() {
+    this.direction = Direction.RIGHT;
+  }
+
   @Override
   public void keyTyped(KeyEvent e) {
-    switch (e.getKeyCode()) {
-      case KeyEvent.VK_UP:
-        direction = Direction.UP;
-        break;
-      case KeyEvent.VK_DOWN:
-        direction = Direction.DOWN;
-        break;
-      case KeyEvent.VK_LEFT:
-        direction = Direction.LEFT;
-        break;
-      case KeyEvent.VK_RIGHT:
-        direction = Direction.RIGHT;
-        break;
-    }
+
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-
+    switch (e.getKeyCode()) {
+      case KeyEvent.VK_W:
+        this.direction = Direction.UP;
+        break;
+      case KeyEvent.VK_S:
+        this.direction = Direction.DOWN;
+        break;
+      case KeyEvent.VK_A:
+        this.direction = Direction.LEFT;
+        break;
+      case KeyEvent.VK_D:
+        this.direction = Direction.RIGHT;
+        break;
+    }
   }
 
   @Override

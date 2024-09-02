@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import controller.Direction;
 import controller.KeyboardController;
@@ -13,17 +14,19 @@ public class Snake {
   private MouseController MouseController;
   private Direction direction;
   private int speed;
+  private int size;
 
   public Snake(KeyboardController KeyController, MouseController MouseController) {
     this.KeyController = KeyController;
     this.MouseController = MouseController;
+    this.segments = new ArrayList<SnakeSegment>();
     this.init();
   }
 
   public void init() {
     // Initialiser le serpent
-
-    segments.clear();
+    speed = 1;
+    size = 10;
     segments.add(new SnakeHead(speed));
     direction = Direction.RIGHT;
   }
@@ -48,6 +51,10 @@ public class Snake {
 
   public List<SnakeSegment> getSegments() {
     return this.segments;
+  }
+
+  public int getSize() {
+    return size;
   }
 
 }
