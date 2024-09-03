@@ -1,38 +1,31 @@
 package controller;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseController implements MouseListener {
+public class MouseController implements MouseMotionListener {
+
+  private int x;
+  private int y;
 
   @Override
-  public void mouseClicked(MouseEvent e) {
+  public void mouseDragged(MouseEvent e) {
     // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+    throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
   }
 
   @Override
-  public void mousePressed(MouseEvent e) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
+  public void mouseMoved(MouseEvent e) {
+    this.x = e.getX();
+    this.y = e.getY();
   }
 
-  @Override
-  public void mouseReleased(MouseEvent e) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
+  public int getX() {
+    return x;
   }
 
-  @Override
-  public void mouseEntered(MouseEvent e) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
-  }
-
-  @Override
-  public void mouseExited(MouseEvent e) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+  public int getY() {
+    return y;
   }
 
 }

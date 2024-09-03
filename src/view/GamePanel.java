@@ -1,6 +1,7 @@
 package view;
 
 import controller.KeyboardController;
+import controller.MouseController;
 import model.Map;
 import model.Snake;
 
@@ -16,6 +17,7 @@ public class GamePanel extends JPanel implements Runnable {
   private Map map;
   private Snake meSnake;
   private KeyboardController keyboardController;
+  private MouseController mouseController;
   private Thread gameThread;
   private boolean running = false;
   private final int FPS = 60;
@@ -27,6 +29,8 @@ public class GamePanel extends JPanel implements Runnable {
     requestFocus();
     this.keyboardController = new KeyboardController();
     this.addKeyListener(keyboardController);
+    this.mouseController = new MouseController();
+    this.addMouseMotionListener(mouseController);
 
     backgroundImage = new ImageIcon(getClass().getResource("../resources/background.jpeg")).getImage();
     this.meSnake = new Snake(keyboardController, null);
@@ -88,19 +92,29 @@ public class GamePanel extends JPanel implements Runnable {
     int pictureHeight = backgroundImage.getHeight(this);
 
     // Dessiner l'image sur tout le JPanel
-    for (int x = 0; x < 2; x++) {
-      for (int y = 0; y < 2; y++) {
+    for (int x = 0; x < 3; x++) {
+      for (int y = 0; y < 3; y++) {
         g.drawImage(backgroundImage, x * pictureWidth, y * pictureHeight, pictureWidth, pictureHeight, this);
       }
     }
   }
 
   private void drawSnake(Graphics g) {
-    Snake snake = meSnake;
-    for (int i = 0; i < snake.getSegments().size(); i++) {
-      g.setColor(Color.GREEN);
-      g.fillOval(snake.getSegments().get(i).getX() - snake.getSize(),
-          snake.getSegments().get(i).getY() - snake.getSize(), 2 * snake.getSize(), 2 * snake.getSize());
+    for (Snake snake : map.getSnakes()) {
+      for (int i = 0; i < snake.getSegments().size(); i++) {
+        g.setColor(Color.GREEN);
+        g.fillOval(snake.getSegments().get(i).getX() - snake.getSize(),
+            snake.getSegments().get(i).getY() - snake.getSize(), 2 * snake.getSize(), 2 * snake.getSize());
+      }
+    }
+  }
+
+  private void drawFood(Graphics g) {
+    for (int i = 0; i < map.getFoods().size(); i++) {
+      g.setColor(map.getFoods().get(i).getColor());
+      g.fillOval(map.getFoods().get(i).getX() - map.getFoods().get(i).getSize(),
+          map.getFoods().get(i).getY() - map.getFoods().get(i).getSize(), 2 * map.getFoods().get(i).getSize(),
+          2 * map.getFoods().get(i).getSize());
     }
   }
 
@@ -110,6 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
     super.paintComponent(g);
     this.drawMap(g);
     this.drawSnake(g);
+    this.drawFood(g);
   }
 
 }

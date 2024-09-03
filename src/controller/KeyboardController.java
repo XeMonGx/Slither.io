@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyboardController implements KeyListener {
 
-  Direction direction;
+  private Direction direction;
 
   public KeyboardController() {
     this.direction = Direction.RIGHT;

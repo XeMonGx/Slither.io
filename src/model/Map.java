@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 public class Map {
 
-  public int width;
-  public int height;
-  public ArrayList<Snake> snakes;
+  private int width;
+  private int height;
+  private ArrayList<Snake> snakes;
+  private ArrayList<Food> foods;
+  private int maxSnakes;
+  private int maxFoods;
 
   public Map(int width, int height) {
     this.width = width;
@@ -16,12 +19,21 @@ public class Map {
 
   public void init() {
     this.snakes = new ArrayList<Snake>();
+    this.maxFoods = 50;
+    this.foods = new ArrayList<Food>();
+  }
+
+  public void generateFoods() {
+    while (this.foods.size() < this.maxFoods) {
+      this.foods.add(new Food());
+    }
   }
 
   public void update() {
     for (Snake snake : this.snakes) {
       snake.update();
     }
+    generateFoods();
   }
 
   public void addSnake(Snake snake) {
@@ -42,6 +54,10 @@ public class Map {
 
   public ArrayList<Snake> getSnakes() {
     return this.snakes;
+  }
+
+  public ArrayList<Food> getFoods() {
+    return this.foods;
   }
 
 }

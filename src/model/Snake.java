@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
+import controller.ControlMode;
 import controller.Direction;
 import controller.KeyboardController;
 import controller.MouseController;
@@ -12,6 +13,7 @@ public class Snake {
   private List<SnakeSegment> segments;
   private KeyboardController KeyController;
   private MouseController MouseController;
+  private ControlMode controlMode;
   private Direction direction;
   private int speed;
   private int size;
@@ -26,14 +28,19 @@ public class Snake {
   public void init() {
     // Initialiser le serpent
     speed = 1;
-    size = 10;
-    segments.add(new SnakeHead(speed));
+    size = 20;
+    controlMode = ControlMode.KEYBOARD;
     direction = Direction.RIGHT;
+    segments.add(new SnakeHead(speed));
   }
 
   public void update() {
     // Mettre à jour le serpent
-    direction = KeyController.getDirection();
+    if (controlMode == ControlMode.KEYBOARD) {
+      direction = KeyController.getDirection();
+    } else if (controlMode == ControlMode.MOUSE) {
+
+    }
     move();
   }
 
