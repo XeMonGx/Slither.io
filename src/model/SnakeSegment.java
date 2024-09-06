@@ -4,7 +4,7 @@ import controller.Direction;
 
 public interface SnakeSegment {
 
-  void move(Direction direction);
+  void move();
 
   int getX();
 

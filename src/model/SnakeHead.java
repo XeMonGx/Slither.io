@@ -9,8 +9,10 @@ public class SnakeHead implements SnakeSegment {
   private int x;
   private int y;
   private int speed;
+  private Direction direction;
 
-  public SnakeHead(int speed) {
+  public SnakeHead(int speed, Direction direction) {
+    this.direction = direction;
     this.speed = speed;
     init();
   }
@@ -23,7 +25,7 @@ public class SnakeHead implements SnakeSegment {
   }
 
   @Override
-  public void move(Direction direction) {
+  public void move() {
     // Déplacer la tête du serpent
     switch (direction) {
       case UP:
@@ -53,4 +55,11 @@ public class SnakeHead implements SnakeSegment {
     return this.y;
   }
 
+  public Direction getDirection() {
+    return direction;
+  }
+
+  public void setDirection(Direction direction) {
+    this.direction = direction;
+  }
 }

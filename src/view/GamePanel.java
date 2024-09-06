@@ -2,6 +2,7 @@ package view;
 
 import controller.KeyboardController;
 import controller.MouseController;
+import model.Collision;
 import model.Map;
 import model.Snake;
 
@@ -103,8 +104,11 @@ public class GamePanel extends JPanel implements Runnable {
     for (Snake snake : map.getSnakes()) {
       for (int i = 0; i < snake.getSegments().size(); i++) {
         g.setColor(Color.GREEN);
-        g.fillOval(snake.getSegments().get(i).getX() - snake.getSize(),
-            snake.getSegments().get(i).getY() - snake.getSize(), 2 * snake.getSize(), 2 * snake.getSize());
+        g.fillOval(
+            snake.getSegments().get(i).getX() - snake.getSize(),
+            snake.getSegments().get(i).getY() - snake.getSize(),
+            2 * snake.getSize(),
+            2 * snake.getSize());
       }
     }
   }
@@ -123,8 +127,8 @@ public class GamePanel extends JPanel implements Runnable {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     this.drawMap(g);
-    this.drawSnake(g);
     this.drawFood(g);
+    this.drawSnake(g);
   }
 
 }

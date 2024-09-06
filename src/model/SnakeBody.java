@@ -6,32 +6,25 @@ public class SnakeBody implements SnakeSegment {
 
   private int x;
   private int y;
-  private int speed;
   private Effect effect;
+  private SnakeSegment preSegment;
+  private int space;
 
-  public SnakeBody(int x, int y, int speed) {
+  public SnakeBody(SnakeSegment preSegment, int x, int y, int space) {
+    this.preSegment = preSegment;
+    this.space = space;
     this.x = x;
     this.y = y;
   }
 
   @Override
-  public void move(Direction direction) {
-    // Déplacer le corps du serpent
-    switch (direction) {
-      case UP:
-        this.y -= speed;
-        break;
-      case DOWN:
-        this.y += speed;
-        break;
-      case LEFT:
-        this.x -= speed;
-        break;
-      case RIGHT:
-        this.x += speed;
-        break;
-      default:
-        break;
+  public void move() {
+    int directionX = preSegment.getX() - this.x;
+    int directionY = preSegment.getY() - this.y;
+    int length = (int) Math.sqrt(directionX * directionX + directionY * directionY);
+    if (length > space) {
+      this.x = preSegment.getX() - directionX * space / length;
+      this.y = preSegment.getY() - directionY * space / length;
     }
   }
 

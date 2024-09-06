@@ -17,6 +17,7 @@ public class Snake {
   private Direction direction;
   private int speed;
   private int size;
+  private int space;
 
   public Snake(KeyboardController KeyController, MouseController MouseController) {
     this.KeyController = KeyController;
@@ -27,17 +28,18 @@ public class Snake {
 
   public void init() {
     // Initialiser le serpent
-    speed = 1;
-    size = 20;
-    controlMode = ControlMode.KEYBOARD;
-    direction = Direction.RIGHT;
-    segments.add(new SnakeHead(speed));
+    this.speed = 2;
+    this.size = 20;
+    this.space = 10;
+    this.controlMode = ControlMode.KEYBOARD;
+    this.direction = Direction.RIGHT;
+    this.segments.add(new SnakeHead(speed, direction));
   }
 
   public void update() {
     // Mettre à jour le serpent
     if (controlMode == ControlMode.KEYBOARD) {
-      direction = KeyController.getDirection();
+      this.direction = KeyController.getDirection();
     } else if (controlMode == ControlMode.MOUSE) {
 
     }
@@ -45,15 +47,34 @@ public class Snake {
   }
 
   public void move() {
-    // Déplacer le serpent
+    ((SnakeHead) segments.get(0)).setDirection(direction); // Cast to SnakeHead
     for (SnakeSegment segment : segments) {
-      segment.move(direction);
+      segment.move(); // Call move() method from SnakeSegment interface
     }
   }
 
-  public void grow(int x, int y) {
-    // Faire grandir le serpent
-    segments.add(new SnakeBody(x, y, speed));
+  public void grow() {
+
+    int previousX = segments.get(segments.size() - 1).getX();
+    int previousY = segments.get(segments.size() - 1).getY();
+    SnakeSegment lastSegment = segments.get(segments.size() - 1);
+
+    switch (direction) {
+      case UP:
+        segments.add(new SnakeBody(lastSegment, previousX, previousY + space, space));
+        break;
+      case DOWN:
+        segments.add(new SnakeBody(lastSegment, previousX, previousY - space, space));
+        break;
+      case LEFT:
+        segments.add(new SnakeBody(lastSegment, previousX + space, previousY, space));
+        break;
+      case RIGHT:
+        segments.add(new SnakeBody(lastSegment, previousX - space, previousY, space));
+        break;
+      default:
+        break;
+    }
   }
 
   public List<SnakeSegment> getSegments() {

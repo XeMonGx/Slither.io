@@ -8,6 +8,7 @@ public class Map {
   private int height;
   private ArrayList<Snake> snakes;
   private ArrayList<Food> foods;
+  private Collision collision;
   private int maxSnakes;
   private int maxFoods;
 
@@ -21,6 +22,7 @@ public class Map {
     this.snakes = new ArrayList<Snake>();
     this.maxFoods = 50;
     this.foods = new ArrayList<Food>();
+    this.collision = new Collision(this.snakes, this.foods);
   }
 
   public void generateFoods() {
@@ -34,6 +36,7 @@ public class Map {
       snake.update();
     }
     generateFoods();
+    this.collision.update();
   }
 
   public void addSnake(Snake snake) {
