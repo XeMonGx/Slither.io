@@ -18,14 +18,14 @@ public class Map {
     this.init();
   }
 
-  public void init() {
+  private void init() {
     this.snakes = new ArrayList<Snake>();
     this.maxFoods = 50;
     this.foods = new ArrayList<Food>();
     this.collision = new Collision(this.snakes, this.foods);
   }
 
-  public void generateFoods() {
+  private void generateFoods() {
     while (this.foods.size() < this.maxFoods) {
       this.foods.add(new Food());
     }
