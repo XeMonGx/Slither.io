@@ -26,9 +26,9 @@ public class Snake {
     this.init();
   }
 
-  public void init() {
+  private void init() {
     // Initialiser le serpent
-    this.speed = 2;
+    this.speed = 1;
     this.size = 20;
     this.space = 10;
     this.controlMode = ControlMode.KEYBOARD;

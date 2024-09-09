@@ -2,7 +2,6 @@ package view;
 
 import controller.KeyboardController;
 import controller.MouseController;
-import model.Collision;
 import model.Map;
 import model.Snake;
 
@@ -41,14 +40,14 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   // Démarrer le jeu
-  public void start() {
+  private void start() {
     running = true;
     gameThread = new Thread(this);
     gameThread.start();
   }
 
   // Arrêter le jeu
-  public void stop() {
+  private void stop() {
     running = false;
     try {
       gameThread.join();
@@ -83,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   // Mise à jour de la logique du jeu
-  public void update() {
+  private void update() {
     map.update();
     meSnake.update();
   }
@@ -100,15 +99,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
   }
 
-  private void drawSnake(Graphics g) {
+  private void drawSnakes(Graphics g) {
     for (Snake snake : map.getSnakes()) {
       for (int i = 0; i < snake.getSegments().size(); i++) {
         g.setColor(Color.GREEN);
         g.fillOval(
             snake.getSegments().get(i).getX() - snake.getSize(),
             snake.getSegments().get(i).getY() - snake.getSize(),
-            2 * snake.getSize(),
-            2 * snake.getSize());
+            snake.getSize() * 2,
+            snake.getSize() * 2);
       }
     }
   }
@@ -128,7 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
     super.paintComponent(g);
     this.drawMap(g);
     this.drawFood(g);
-    this.drawSnake(g);
+    this.drawSnakes(g);
   }
 
 }

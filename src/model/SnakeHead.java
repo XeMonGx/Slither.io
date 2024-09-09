@@ -17,7 +17,7 @@ public class SnakeHead implements SnakeSegment {
     init();
   }
 
-  public void init() {
+  private void init() {
     // Initialiser la tête du serpent
     Random random = new Random();
     this.x = random.nextInt(120);

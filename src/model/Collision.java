@@ -16,18 +16,26 @@ public class Collision {
     check();
   }
 
+  private boolean isFood(Snake snake) {
+    int snakeX = snake.getSegments().get(0).getX(); // Get head of snake X
+    int snakeY = snake.getSegments().get(0).getY(); // Get head of snake Y
+    int snakeSize = snake.getSize(); // Get size of snake
+    for (Food food : foods) { // Iterate over foods
+      if (snakeX > food.getX() - snakeSize &&
+          snakeX < food.getX() + snakeSize &&
+          snakeY > food.getY() - snakeSize &&
+          snakeY < food.getY() + snakeSize) { // Check if snake is on food
+        foods.remove(food); // Remove food
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void check() {
     for (Snake snake : snakes) {
-      int halfSize = snake.getSize() / 2;
-      for (Food food : foods) {
-        if (snake.getSegments().get(0).getX() >= food.getX() - halfSize &&
-            snake.getSegments().get(0).getX() <= food.getX() + halfSize &&
-            snake.getSegments().get(0).getY() >= food.getY() - halfSize &&
-            snake.getSegments().get(0).getY() <= food.getY() + halfSize) {
-          snake.grow();
-          foods.remove(food);
-          break;
-        }
+      if (isFood(snake)) { // Check if snake is on food
+        snake.grow(); // Grow snake
       }
     }
   }
