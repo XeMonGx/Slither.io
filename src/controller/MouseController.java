@@ -10,8 +10,7 @@ public class MouseController implements MouseMotionListener {
 
   @Override
   public void mouseDragged(MouseEvent e) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'mouseDragged'");
+    return;
   }
 
   @Override

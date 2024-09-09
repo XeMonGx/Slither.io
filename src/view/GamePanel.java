@@ -90,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
     Draw.drawMap(g, this);
     Draw.drawFoods(g, map.getFoods());
     Draw.drawSnakes(g, map.getSnakes());
+    Draw.drawExpPorcentage(g, meSnake, this.getWidth() / 2 - 50, this.getHeight() - 25);
   }
 
 }

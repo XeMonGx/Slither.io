@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Color;
 
 import model.Food;
 import model.Snake;
@@ -46,6 +47,14 @@ public class Draw {
             snake.getSize() * 2);
       }
     }
+  }
+
+  public static void drawExpPorcentage(Graphics g, Snake snake, int width, int height) {
+    int expsize = (int) (100 * snake.getExp() / snake.getMaxExp());
+    g.setColor(Color.WHITE);
+    g.fillRect(width, height, 100, 15);
+    g.setColor(Color.BLACK);
+    g.fillRect(width + 1, height + 1, expsize, 13);
   }
 
 }

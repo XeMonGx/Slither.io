@@ -13,7 +13,7 @@ public class KeyboardController implements KeyListener {
 
   @Override
   public void keyTyped(KeyEvent e) {
-
+    return;
   }
 
   @Override
@@ -36,7 +36,7 @@ public class KeyboardController implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
-
+    return;
   }
 
   public Direction getDirection() {

@@ -20,7 +20,9 @@ public class Snake {
   private Color color;
   private int speed;
   private int size;
-  private int space;
+  private static int space = 10;
+  private int exp;
+  private int maxExp;
 
   public Snake(KeyboardController KeyController, MouseController MouseController) {
     this.KeyController = KeyController;
@@ -33,8 +35,8 @@ public class Snake {
     // Initialiser le serpent
     this.speed = 1;
     this.exp = 0;
-    this.size = 20;
-    this.space = 10;
+    this.size = 15;
+    this.maxExp = 10;
     Random random = new Random();
     this.color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     this.controlMode = ControlMode.KEYBOARD;
@@ -49,6 +51,9 @@ public class Snake {
     } else if (controlMode == ControlMode.MOUSE) {
 
     }
+    if (enoughExp()) {
+      grow();
+    }
     move();
   }
 
@@ -57,6 +62,15 @@ public class Snake {
     for (SnakeSegment segment : segments) {
       segment.move(); // Call move() method from SnakeSegment interface
     }
+  }
+
+  public boolean enoughExp() {
+    if (this.exp >= maxExp) {
+      this.exp %= maxExp;
+      maxExp += 10;
+      return true;
+    }
+    return false;
   }
 
   public void grow() {
@@ -83,6 +97,10 @@ public class Snake {
     }
   }
 
+  public void addExp(int exp) {
+    this.exp += exp;
+  }
+
   public List<SnakeSegment> getSegments() {
     return this.segments;
   }
@@ -93,6 +111,14 @@ public class Snake {
 
   public Color getColor() {
     return color;
+  }
+
+  public int getExp() {
+    return exp;
+  }
+
+  public int getMaxExp() {
+    return maxExp;
   }
 
 }
