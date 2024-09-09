@@ -121,4 +121,8 @@ public class Snake {
     return maxExp;
   }
 
+  public SnakeSegment getHead() {
+    return segments.get(0);
+  }
+
 }

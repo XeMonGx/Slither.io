@@ -2,6 +2,7 @@ package view;
 
 import controller.KeyboardController;
 import controller.MouseController;
+import model.Camera;
 import model.Map;
 import model.Snake;
 
@@ -9,17 +10,19 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
-
   private Map map;
   private Snake meSnake;
+  private int width;
+  private int height;
   private KeyboardController keyboardController;
   private MouseController mouseController;
   private Thread gameThread;
   private boolean running = false;
   private final int FPS = 60;
   private final long targetTime = 1000 / FPS;
+  private Camera camera;
 
-  public GamePanel(Map map) {
+  public GamePanel(int width, int height, Map map) {
 
     setFocusable(true);
     requestFocus();
@@ -29,12 +32,18 @@ public class GamePanel extends JPanel implements Runnable {
     // add mouse listener
     this.mouseController = new MouseController();
     this.addMouseMotionListener(mouseController);
+    // set width and height
+    this.width = width;
+    this.height = height;
+    // set camera
+    this.camera = new Camera(width, height);
     // set map
     this.map = map;
     // create a new snake
     this.meSnake = new Snake(keyboardController, null);
     // add snake to map
     this.map.addSnake(meSnake);
+
     // start the game
     start();
   }
@@ -82,14 +91,15 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     map.update();
     meSnake.update();
+    camera.update(meSnake.getHead().getX(), meSnake.getHead().getY());
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    Draw.drawMap(g, this);
-    Draw.drawFoods(g, map.getFoods());
-    Draw.drawSnakes(g, map.getSnakes());
+    Draw.drawMap(g, this, camera);
+    Draw.drawFoods(g, map.getFoods(), camera);
+    Draw.drawSnakes(g, map.getSnakes(), camera);
     Draw.drawExpPorcentage(g, meSnake, this.getWidth() / 2 - 50, this.getHeight() - 25);
   }
 
