@@ -6,14 +6,10 @@ import model.Map;
 import model.Snake;
 
 import java.awt.Graphics;
-import java.awt.Color;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
 
-  private Image backgroundImage;
   private Map map;
   private Snake meSnake;
   private KeyboardController keyboardController;
@@ -23,30 +19,32 @@ public class GamePanel extends JPanel implements Runnable {
   private final int FPS = 60;
   private final long targetTime = 1000 / FPS;
 
-  public GamePanel(int x, int y, int radius, Color color, Map map) {
+  public GamePanel(Map map) {
 
     setFocusable(true);
     requestFocus();
+    // add key listener
     this.keyboardController = new KeyboardController();
     this.addKeyListener(keyboardController);
+    // add mouse listener
     this.mouseController = new MouseController();
     this.addMouseMotionListener(mouseController);
-
-    backgroundImage = new ImageIcon(getClass().getResource("../resources/background.jpeg")).getImage();
-    this.meSnake = new Snake(keyboardController, null);
+    // set map
     this.map = map;
+    // create a new snake
+    this.meSnake = new Snake(keyboardController, null);
+    // add snake to map
     this.map.addSnake(meSnake);
+    // start the game
     start();
   }
 
-  // Démarrer le jeu
   private void start() {
     running = true;
     gameThread = new Thread(this);
     gameThread.start();
   }
 
-  // Arrêter le jeu
   private void stop() {
     running = false;
     try {
@@ -62,11 +60,11 @@ public class GamePanel extends JPanel implements Runnable {
     long elapsedTime;
     long waitTime;
 
-    while (running) {
+    while (running) { // game loop
       startTime = System.nanoTime();
 
-      update(); // Mise à jour de la logique du jeu
-      repaint(); // Appelle paintComponent pour dessiner le jeu
+      update(); // update game logic
+      repaint(); // repaint the game
 
       elapsedTime = System.nanoTime() - startTime;
       waitTime = targetTime - elapsedTime / 1000000;
@@ -81,53 +79,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
   }
 
-  // Mise à jour de la logique du jeu
   private void update() {
     map.update();
     meSnake.update();
   }
 
-  private void drawMap(Graphics g) {
-    int pictureWidth = backgroundImage.getWidth(this);
-    int pictureHeight = backgroundImage.getHeight(this);
-
-    // Dessiner l'image sur tout le JPanel
-    for (int x = 0; x < 3; x++) {
-      for (int y = 0; y < 3; y++) {
-        g.drawImage(backgroundImage, x * pictureWidth, y * pictureHeight, pictureWidth, pictureHeight, this);
-      }
-    }
-  }
-
-  private void drawSnakes(Graphics g) {
-    for (Snake snake : map.getSnakes()) {
-      for (int i = 0; i < snake.getSegments().size(); i++) {
-        g.setColor(Color.GREEN);
-        g.fillOval(
-            snake.getSegments().get(i).getX() - snake.getSize(),
-            snake.getSegments().get(i).getY() - snake.getSize(),
-            snake.getSize() * 2,
-            snake.getSize() * 2);
-      }
-    }
-  }
-
-  private void drawFood(Graphics g) {
-    for (int i = 0; i < map.getFoods().size(); i++) {
-      g.setColor(map.getFoods().get(i).getColor());
-      g.fillOval(map.getFoods().get(i).getX() - map.getFoods().get(i).getSize(),
-          map.getFoods().get(i).getY() - map.getFoods().get(i).getSize(), 2 * map.getFoods().get(i).getSize(),
-          2 * map.getFoods().get(i).getSize());
-    }
-  }
-
-  // Redéfinir paintComponent pour dessiner l'image
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    this.drawMap(g);
-    this.drawFood(g);
-    this.drawSnakes(g);
+    Draw.drawMap(g, this);
+    Draw.drawFoods(g, map.getFoods());
+    Draw.drawSnakes(g, map.getSnakes());
   }
 
 }

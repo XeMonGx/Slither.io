@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+import java.util.Random;
+import java.awt.Color;
 import java.util.ArrayList;
 
 import controller.ControlMode;
@@ -15,6 +17,7 @@ public class Snake {
   private MouseController MouseController;
   private ControlMode controlMode;
   private Direction direction;
+  private Color color;
   private int speed;
   private int size;
   private int space;
@@ -29,8 +32,11 @@ public class Snake {
   private void init() {
     // Initialiser le serpent
     this.speed = 1;
+    this.exp = 0;
     this.size = 20;
     this.space = 10;
+    Random random = new Random();
+    this.color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     this.controlMode = ControlMode.KEYBOARD;
     this.direction = Direction.RIGHT;
     this.segments.add(new SnakeHead(speed, direction));
@@ -83,6 +89,10 @@ public class Snake {
 
   public int getSize() {
     return size;
+  }
+
+  public Color getColor() {
+    return color;
   }
 
 }

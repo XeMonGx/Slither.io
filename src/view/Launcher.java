@@ -17,7 +17,7 @@ public class Launcher extends JFrame {
         Map map = new Map(100, 100);
 
         // Ajout du panneau de jeu
-        GamePanel gamePanel = new GamePanel(10, 10, 10, java.awt.Color.RED, map);
+        GamePanel gamePanel = new GamePanel(map);
         add(gamePanel);
     }
 }
