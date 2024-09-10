@@ -23,8 +23,8 @@ public class Draw {
     int pictureHeight = backgroundImage.getHeight(panel);
 
     // Dessiner l'image sur tout le JPanel
-    for (int x = 0; x < 3; x++) {
-      for (int y = 0; y < 3; y++) {
+    for (int x = -3; x < 3; x++) {
+      for (int y = -3; y < 3; y++) {
         g.drawImage(backgroundImage, pictureWidth * x - camera.getX(), pictureHeight * y - camera.getY(), pictureWidth,
             pictureHeight, panel);
       }

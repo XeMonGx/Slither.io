@@ -11,7 +11,9 @@ public class Camera {
     this.y = 0;
   }
 
-  public void update(int snakeX, int snakeY) {
+  public void update(int snakeX, int snakeY, int width, int height) {
+    this.width = width;
+    this.height = height;
     this.x = snakeX - width / 2;
     this.y = snakeY - height / 2;
   }

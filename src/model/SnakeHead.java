@@ -2,8 +2,6 @@ package model;
 
 import java.util.Random;
 
-import controller.Direction;
-
 public class SnakeHead implements SnakeSegment {
 
   private int x;
@@ -20,8 +18,8 @@ public class SnakeHead implements SnakeSegment {
   private void init() {
     // Initialiser la tête du serpent
     Random random = new Random();
-    this.x = random.nextInt(120);
-    this.y = random.nextInt(120);
+    this.x = random.nextInt(1280);
+    this.y = random.nextInt(720);
   }
 
   @Override

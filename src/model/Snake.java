@@ -5,18 +5,16 @@ import java.util.Random;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import controller.ControlMode;
-import controller.Direction;
 import controller.KeyboardController;
 import controller.MouseController;
 
 public class Snake {
 
-  private List<SnakeSegment> segments;
+  protected List<SnakeSegment> segments;
   private KeyboardController KeyController;
   private MouseController MouseController;
   private ControlMode controlMode;
-  private Direction direction;
+  protected Direction direction;
   private Color color;
   private int speed;
   private int size;
@@ -31,7 +29,7 @@ public class Snake {
     this.init();
   }
 
-  private void init() {
+  protected void init() {
     // Initialiser le serpent
     this.speed = 1;
     this.exp = 0;

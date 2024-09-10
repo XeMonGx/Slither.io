@@ -5,6 +5,7 @@ import controller.MouseController;
 import model.Camera;
 import model.Map;
 import model.Snake;
+import model.SnakeAI;
 
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -40,10 +41,12 @@ public class GamePanel extends JPanel implements Runnable {
     // set map
     this.map = map;
     // create a new snake
-    this.meSnake = new Snake(keyboardController, null);
+    this.meSnake = new Snake(keyboardController, mouseController);
     // add snake to map
     this.map.addSnake(meSnake);
-
+    for (int i = 0; i < 10; i++) {
+      this.map.addSnake(new SnakeAI(map.getFoods()));
+    }
     // start the game
     start();
   }
@@ -91,7 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
   private void update() {
     map.update();
     meSnake.update();
-    camera.update(meSnake.getHead().getX(), meSnake.getHead().getY());
+    camera.update(meSnake.getHead().getX(), meSnake.getHead().getY(), this.getWidth(), this.getHeight());
   }
 
   @Override

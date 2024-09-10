@@ -1,7 +1,5 @@
 package model;
 
-import controller.Direction;
-
 public class SnakeBody implements SnakeSegment {
 
   private int x;
