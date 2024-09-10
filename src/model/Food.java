@@ -19,6 +19,13 @@ public class Food {
     // Generate random position for food between 0 and 1280 for X and 0 and 720 for
     // Y
     Random random = new Random();
+    if (random.nextInt(2) == 0) {
+      this.x = -random.nextInt(1280);
+      this.y = -random.nextInt(720);
+    } else {
+      this.x = random.nextInt(1280);
+      this.y = random.nextInt(720);
+    }
     this.x = random.nextInt(1280);
     this.y = random.nextInt(720);
     // Size of food is between 2 and 6
