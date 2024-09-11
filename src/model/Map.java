@@ -35,6 +35,9 @@ public class Map {
     for (Snake snake : this.snakes) {
       snake.update();
       if (snake.isDead() == true) {
+        for (SnakeSegment segment : snake.getSegments()) {
+          foods.add(new Food(segment.getX(), segment.getY()));
+        }
         this.snakes.remove(snake);
         break;
       }

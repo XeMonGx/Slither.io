@@ -15,6 +15,20 @@ public class Food {
     this.init();
   }
 
+  public Food(int x, int y) {
+    this.x = x;
+    this.y = y;
+    Random random = new Random();
+    this.size = random.nextInt(5) + 2;
+    // Generate random color for food
+    int r = random.nextInt(256);
+    int g = random.nextInt(256);
+    int b = random.nextInt(256);
+    this.color = new Color(r, g, b);
+    // Generate random effect for food
+    this.effect = Effect.values()[random.nextInt(Effect.values().length)];
+  }
+
   private void init() {
     // Generate random position for food between 0 and 1280 for X and 0 and 720 for
     // Y
