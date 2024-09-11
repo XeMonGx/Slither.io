@@ -20,10 +20,11 @@ public class Collision {
     int snakeX = snake.getSegments().get(0).getX(); // Get head of snake X
     int snakeY = snake.getSegments().get(0).getY(); // Get head of snake Y
     int snakeSize = snake.getSize(); // Get size of snake
-    if (snakeX > food.getX() - snakeSize &&
-        snakeX < food.getX() + snakeSize &&
-        snakeY > food.getY() - snakeSize &&
-        snakeY < food.getY() + snakeSize) { // Check if snake is on food
+    int foodSize = food.getSize(); // Get size of food
+    if (snakeX > food.getX() - snakeSize - foodSize &&
+        snakeX < food.getX() + snakeSize + foodSize &&
+        snakeY > food.getY() - snakeSize - foodSize &&
+        snakeY < food.getY() + snakeSize + foodSize) { // Check if snake is on food
       return true;
     }
     return false;
@@ -39,9 +40,31 @@ public class Collision {
     }
   }
 
+  private boolean isSnake(Snake snake) {
+    int snakeX = snake.getSegments().get(0).getX(); // Get head of snake X
+    int snakeY = snake.getSegments().get(0).getY(); // Get head of snake Y
+    int snakeSize = snake.getSize(); // Get size of snake
+    for (Snake otherSnake : this.snakes) {
+      for (SnakeSegment otherSegment : otherSnake.getSegments()) {
+        if (snake != otherSnake) { // Check if snake is not itself
+          if (snakeX > otherSegment.getX() - snakeSize * 2 &&
+              snakeX < otherSegment.getX() + snakeSize * 2 &&
+              snakeY > otherSegment.getY() - snakeSize * 2 &&
+              snakeY < otherSegment.getY() + snakeSize * 2) { // Check if snake
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   public void check() {
     for (Snake snake : this.snakes) {
       eatFood(snake);
+      if (isSnake(snake) == true) {
+        snake.Dead();
+      }
     }
   }
 }

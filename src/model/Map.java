@@ -34,6 +34,10 @@ public class Map {
   public void update() {
     for (Snake snake : this.snakes) {
       snake.update();
+      if (snake.isDead() == true) {
+        this.snakes.remove(snake);
+        break;
+      }
     }
     generateFoods();
     this.collision.update();

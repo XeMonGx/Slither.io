@@ -21,6 +21,7 @@ public class Snake {
   private static int space = 10;
   private int exp;
   private int maxExp;
+  private boolean dead;
 
   public Snake(KeyboardController KeyController, MouseController MouseController) {
     this.KeyController = KeyController;
@@ -34,12 +35,13 @@ public class Snake {
     this.speed = 1;
     this.exp = 0;
     this.size = 15;
-    this.maxExp = 10;
+    this.maxExp = 5;
     Random random = new Random();
     this.color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     this.controlMode = ControlMode.KEYBOARD;
     this.direction = Direction.RIGHT;
     this.segments.add(new SnakeHead(speed, direction));
+    this.dead = false;
   }
 
   public void update() {
@@ -65,7 +67,7 @@ public class Snake {
   public boolean enoughExp() {
     if (this.exp >= maxExp) {
       this.exp %= maxExp;
-      maxExp += 10;
+      maxExp += 5;
       return true;
     }
     return false;
@@ -95,6 +97,10 @@ public class Snake {
     }
   }
 
+  public void Dead() {
+    this.dead = true;
+  }
+
   public void addExp(int exp) {
     this.exp += exp;
   }
@@ -117,6 +123,10 @@ public class Snake {
 
   public int getMaxExp() {
     return maxExp;
+  }
+
+  public boolean isDead() {
+    return dead;
   }
 
   public SnakeSegment getHead() {

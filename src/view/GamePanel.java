@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     for (int i = 0; i < 10; i++) {
       this.map.addSnake(new SnakeAI(map.getFoods()));
     }
+
     // start the game
     start();
   }
